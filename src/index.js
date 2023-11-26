@@ -24,7 +24,9 @@ aplicacion.get("/", (req, res) => {
   res.send("pagina de raiz");
 });
 //Ruta MongoDB
-aplicacion.use("/api", clientes);
+aplicacion.use(
+  "/api", clientes
+);
 //Ejecucion MONGO:DB
 //Ponemos entre el ? retrywrites el nombre de nuestra base de datos
 mongoose
