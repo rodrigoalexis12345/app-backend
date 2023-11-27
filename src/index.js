@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 //estamos traendo el archivo de clientes.js routes
 const clientes = require("./routes/clientes");
+const empleados= require( "./routes/empleados");
 //AVANCE
 //const swagerUI = require("swagger-ui-espress");
 //const swaguerJSDoc=require("swagguer-jsdoc")
@@ -25,7 +26,7 @@ aplicacion.get("/", (req, res) => {
 });
 //Ruta MongoDB
 aplicacion.use(
-  "/api", clientes
+  "/api", clientes,empleados
 );
 //Ejecucion MONGO:DB
 //Ponemos entre el ? retrywrites el nombre de nuestra base de datos
