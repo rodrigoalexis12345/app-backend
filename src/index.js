@@ -2,9 +2,10 @@
 const express = require("express");
 //Paquete MONGO.DB
 const mongoose = require("mongoose");
+// implementacion de las apis
 //estamos traendo el archivo de clientes.js routes
 const clientes = require("./routes/clientes");
-const empleados= require( "./routes/empleados");
+const empleados = require("./routes/empleados");
 //AVANCE
 //const swagerUI = require("swagger-ui-espress");
 //const swaguerJSDoc=require("swagguer-jsdoc")
@@ -16,7 +17,6 @@ const aplicacion = express();
 const puerto = 4000;
 //Configuraciones swagger
 
-
 //Rutas
 aplicacion.get("/prueba", (req, res) => {
   res.send("pagina de prueba ");
@@ -25,9 +25,7 @@ aplicacion.get("/", (req, res) => {
   res.send("pagina de raiz");
 });
 //Ruta MongoDB
-aplicacion.use(
-  "/api", clientes,empleados
-);
+aplicacion.use("/api", clientes, empleados);
 //Ejecucion MONGO:DB
 //Ponemos entre el ? retrywrites el nombre de nuestra base de datos
 mongoose
