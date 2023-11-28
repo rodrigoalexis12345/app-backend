@@ -40,7 +40,24 @@ const inventariosModel = require("../models/inventarios");
  *         minimumReplacementQuantity: 10
  *         storageLocation: Estanteria F-5
  */
-
+//operaciones GET swagger Inventarios
+/**
+ * @swagger
+ * /api/inventarios:
+ *   get:
+ *     summary: Lista todas los que esta en inventarios
+ *     tags:
+ *       - Inventarios
+ *     responses:
+ *       200:
+ *         description: Inventario mostrado correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#components/schemas/Inventario'
+ */
 //GET
 router.get("/inventarios", (req, res) => {
   inventariosModel

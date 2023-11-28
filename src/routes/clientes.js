@@ -40,7 +40,7 @@ const clientesModel = require("../models/clientes");
  *         shippingaddress: Jose Galves 111
  *         favoriteshoebrand: Nike
  */
-//operaciones swagger
+//operaciones GET swagger
 /**
  * @swagger
  * /api/clientes:

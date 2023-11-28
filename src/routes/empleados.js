@@ -60,7 +60,24 @@ const empleadosModel = require("../models/empleados");
  *         sure: XYZ123
  *         ID: 75962031
  */
-
+//operaciones GET swagger empleados
+/**
+ * @swagger
+ * /api/empleados:
+ *   get:
+ *     summary: Lista todas los empleados
+ *     tags:
+ *       - Empleados
+ *     responses:
+ *       200:
+ *         description: Empleados mostrados correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#components/schemas/Empleados'
+ */
 //GET
 router.get("/empleados", (req, res) => {
   empleadosModel
@@ -68,7 +85,33 @@ router.get("/empleados", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
-
+//Operacion get con ID swagger empleados
+/**
+ * @swagger
+ * /api/empleados/{id}:
+ *   get:
+ *     summary: Lista un empleado por su ID
+ *     tags:
+ *       - Empleados
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del empleado a buscar
+ *     responses:
+ *       200:
+ *         description: Empleado encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#components/schemas/Empleados'
+ *       404:
+ *         description: El empleado consultado no existe
+ */
 //GET CON ID
 router.get("/empleados/:id", (req, res) => {
   const { id } = req.params;

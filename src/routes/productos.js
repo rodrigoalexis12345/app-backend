@@ -44,7 +44,24 @@ const productosModel = require("../models/productos");
  *         sizes: [38, 39, 40, 41]
  *         Productstatus: Seminuevo
  */
-
+//operaciones GET swagger Productos
+/**
+ * @swagger
+ * /api/productos:
+ *   get:
+ *     summary: Lista todas los productos
+ *     tags:
+ *       - Productos
+ *     responses:
+ *       200:
+ *         description: Productos mostrados correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#components/schemas/Productos'
+ */
 //GET
 router.get("/productos", (req, res) => {
   productosModel

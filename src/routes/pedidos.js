@@ -78,7 +78,24 @@ const pedidosModel = require("../models/pedidos");
  *         card: Visa
  *         totalToPay: 100
  */
-
+//operaciones GET swagger Pedidos
+/**
+ * @swagger
+ * /api/pedidos:
+ *   get:
+ *     summary: Lista todas los pedidos
+ *     tags:
+ *       - Pedidos
+ *     responses:
+ *       200:
+ *         description: Pedidos mostrados correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#components/schemas/Pedidos'
+ */
 //GET
 router.get("/pedidos", (req, res) => {
   pedidosModel
@@ -86,7 +103,33 @@ router.get("/pedidos", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
-
+//Operacion get con ID swagger
+/**
+ * @swagger
+ * /api/pedidos/{id}:
+ *   get:
+ *     summary: Lista un pedido por su ID
+ *     tags:
+ *       - Pedidos
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del pedido a buscar
+ *     responses:
+ *       200:
+ *         description: Pedido encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#components/schemas/Pedido'
+ *       404:
+ *         description: El pedido consultado no existe
+ */
 //GET CON ID
 router.get("/pedidos/:id", (req, res) => {
   const { id } = req.params;
@@ -95,6 +138,24 @@ router.get("/pedidos/:id", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
+//Operacion Post con  swagger
+/**
+ * @swagger
+ * /api/pedidos:
+ *   post:
+ *     summary: Crea un nuevo pedido
+ *     tags:
+ *       - Pedidos
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#components/schemas/Pedidos'
+ *     responses:
+ *       200:
+ *         description: Venta guardada
+ */
 //post
 router.post("/pedidos", (req, res) => {
   const pedidos = pedidosModel(req.body);
