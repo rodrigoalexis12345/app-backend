@@ -4,6 +4,80 @@ const express = require("express");
 const router = express.Router();
 //Llamamos a la coleccion creada en Models
 const pedidosModel = require("../models/pedidos");
+//Swagger documentacion apis
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Pedidos:
+ *       type: object
+ *       properties:
+ *         customerWhoPlacedTheOrder:
+ *           type: string
+ *           description: Cliente que realiza el pedido
+ *         orderedProducts:
+ *           type: array
+ *           description: Productos ordenados por el cliente
+ *           items:
+ *             type: object
+ *             properties:
+ *               product1:
+ *                 type: string
+ *                 description: Primer pedido
+ *               product2:
+ *                 type: string
+ *                 description: Segundo pedido
+ *         amount1:
+ *           type: number
+ *           description: Número de pedido del primer producto
+ *         amount2:
+ *           type: number
+ *           description: Número de pedido del segundo producto
+ *         unitPrice1:
+ *           type: number
+ *           description: Precio por unidad del primer producto
+ *         unitPrice2:
+ *           type: number
+ *           description: Precio por unidad del segundo producto
+ *         orderStatus:
+ *           type: string
+ *           description: Estado del pedido
+ *         shippingAddress:
+ *           type: string
+ *           description: Dirección de entrega
+ *         card:
+ *           type: string
+ *           description: Método de pago
+ *         totalToPay:
+ *           type: number
+ *           description: Precio final a pagar
+ *       required:
+ *         - customerWhoPlacedTheOrder
+ *         - orderedProducts
+ *         - amount1
+ *         - amount2
+ *         - unitPrice1
+ *         - unitPrice2
+ *         - orderStatus
+ *         - shippingAddress
+ *         - card
+ *         - totalToPay
+ *         - product1
+ *         - product2
+ *       example:
+ *         customerWhoPlacedTheOrder: Alexis
+ *         orderedProducts:
+ *           - product1: Zapatos
+ *           - product2: Camiseta
+ *         amount1: 1
+ *         amount2: 2
+ *         unitPrice1: 50
+ *         unitPrice2: 150
+ *         orderStatus: Enviado
+ *         shippingAddress: Calle Principal 123
+ *         card: Visa
+ *         totalToPay: 100
+ */
 
 //GET
 router.get("/pedidos", (req, res) => {
@@ -36,36 +110,33 @@ router.delete("/pedidos/:id", (req, res) => {
     customerwhoplacedtheorder,
     orderedproducts,
     product1,
-            amount1,
-            unitprice1,
-            product2,
-            amount,
-            unitprice,
-            orderstatus,
-            shippingaddrees,
-            card,
-            totaltopay,
+    amount1,
+    unitprice1,
+    product2,
+    amount2,
+    unitprice,
+    orderstatus,
+    shippingaddrees,
+    card,
+    totaltopay,
   } = req.body;
   pedidosModel
     .updateOne(
       { _id: id },
       {
         $set: {
-            customerwhoplacedtheorder,
-            orderedproducts,
-            product1,
-            amount1,
-            unitprice1,
-            product2,
-            amount,
-            unitprice,
-            orderstatus,
-            shippingaddrees,
-            card,
-            totaltopay,
-
-
-
+          customerwhoplacedtheorder,
+          orderedproducts,
+          product1,
+          amount1,
+          unitprice1,
+          product2,
+          amount2,
+          unitprice,
+          orderstatus,
+          shippingaddrees,
+          card,
+          totaltopay,
         },
       }
     )

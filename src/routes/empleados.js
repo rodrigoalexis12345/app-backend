@@ -4,6 +4,62 @@ const express = require("express");
 const router = express.Router();
 //Llamamos a la coleccion creada en Models
 const empleadosModel = require("../models/empleados");
+//Swagger documentacion apis
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Empleados:
+ *       type: object
+ *       properties:
+ *         nameandsurnameofemployees:
+ *           type: string
+ *           description: Nombre del colaborador
+ *         employeeage:
+ *           type: number
+ *           description: Edad del colaborador
+ *         roleinthecompany:
+ *           type: string
+ *           description: Puesto en la empresa
+ *         startdateinthecompany:
+ *           type: number
+ *           description: Fecha de inicio en la empresa
+ *         workinghours:
+ *           type: string
+ *           description: Horario de trabajo del colaborador
+ *         freedays:
+ *           type: string
+ *           description: Días libres del colaborador
+ *         sure:
+ *           type: string
+ *           description: Carnet de seguro
+ *         phonenumber:
+ *           type: number
+ *           description: Número de teléfono
+ *         ID:
+ *           type: string
+ *           description: Identificación del colaborador
+ *       required:
+ *         - nameandsurnameofemployees
+ *         - employeeage
+ *         - phonenumber
+ *         - roleinthecompany
+ *         - startdateinthecompany
+ *         - workinghours
+ *         - freedays
+ *         - sure
+ *         - ID
+ *       example:
+ *         nameandsurnameofemployees: Alexis
+ *         employeeage: 15
+ *         phonenumber: 152331520
+ *         roleinthecompany: Manager
+ *         startdateinthecompany: 20230101
+ *         workinghours: 9 AM - 5 PM
+ *         freedays: Saturday, Sunday
+ *         sure: XYZ123
+ *         ID: 75962031
+ */
 
 //GET
 router.get("/empleados", (req, res) => {

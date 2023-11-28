@@ -10,27 +10,44 @@ const inventarios = require("./routes/inventarios");
 const pedidos = require("./routes/pedidos");
 const productos = require("./routes/productos");
 
-
-//AVANCE
-//const swagerUI = require("swagger-ui-espress");
-//const swaguerJSDoc=require("swagguer-jsdoc")
-// path=require("path")
+//AVANCE Swuager
+const swaggerUI = require("swagger-ui-express");
+const swaggerJSDoc = require("swagger-jsdoc");
+const path = require("path");
+//Fin swager
 //llamamos al paquete dotenv
 require("dotenv").config();
 //Configuraciones
 const aplicacion = express();
 const puerto = 4000;
 //Configuraciones swagger
-
+const swaggerConf = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Documentacion de apis",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        url: "http://localhost:4000",
+      },
+    ],
+  },
+  apis: [`${path.join(__dirname, "./routes/*.js")}`],
+};
+//fin configuracion swuagger
 //Rutas
-aplicacion.get("/prueba", (req, res) => {
-  res.send("pagina de prueba ");
-});
-aplicacion.get("/", (req, res) => {
-  res.send("pagina de raiz");
-});
+//Video hora 1.19.30
+aplicacion.use(express.json());
 //Ruta MongoDB
-aplicacion.use("/api", clientes, empleados, inventarios,pedidos,productos);
+aplicacion.use("/api", clientes, empleados, inventarios, pedidos, productos);
+//Swuager rutas
+aplicacion.use(
+  "/api-doc",
+  swaggerUI.serve,
+  swaggerUI.setup(swaggerJSDoc(swaggerConf))
+);
 //Ejecucion MONGO:DB
 //Ponemos entre el ? retrywrites el nombre de nuestra base de datos
 mongoose

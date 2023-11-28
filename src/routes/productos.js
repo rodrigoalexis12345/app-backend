@@ -4,10 +4,50 @@ const express = require("express");
 const router = express.Router();
 //Llamamos a la coleccion creada en Models
 const productosModel = require("../models/productos");
+//Swagger documentacion apis
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Productos:
+ *       type: object
+ *       properties:
+ *         Productname:
+ *           type: string
+ *           description: Nombre del producto
+ *         colors:
+ *           type: array
+ *           description: Colores disponibles
+ *           items:
+ *             type: string
+ *         stock:
+ *           type: number
+ *           description: Cantidad en stock
+ *         sizes:
+ *           type: array
+ *           description: Tallas disponibles
+ *           items:
+ *             type: number
+ *         Productstatus:
+ *           type: string
+ *           description: Estado del producto
+ *       required:
+ *         - Productname
+ *         - colors
+ *         - stock
+ *         - sizes
+ *         - Productstatus
+ *       example:
+ *         Productname: Zapatos de correr
+ *         colors: ["verde", "rojo", "azul"]
+ *         stock: 30
+ *         sizes: [38, 39, 40, 41]
+ *         Productstatus: Seminuevo
+ */
 
 //GET
 router.get("/productos", (req, res) => {
-    productosModel
+  productosModel
     .find()
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
@@ -32,23 +72,17 @@ router.post("/productos", (req, res) => {
 //put actualisar registro
 router.delete("/productos/:id", (req, res) => {
   const { id } = req.params;
-  const {
-    Productname,
-    colors,
-    stock,
-    sizes,
-    Productstatus,
-  } = req.body;
+  const { Productname, colors, stock, sizes, Productstatus } = req.body;
   productosModel
     .updateOne(
       { _id: id },
       {
         $set: {
-            Productname,
-            colors,
-            stock,
-            sizes,
-            Productstatus,
+          Productname,
+          colors,
+          stock,
+          sizes,
+          Productstatus,
         },
       }
     )

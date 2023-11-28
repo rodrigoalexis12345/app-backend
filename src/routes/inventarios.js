@@ -4,6 +4,43 @@ const express = require("express");
 const router = express.Router();
 //Llamamos a la coleccion creada en Models
 const inventariosModel = require("../models/inventarios");
+//Swagger documentacion apis
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Inventario:
+ *       type: object
+ *       properties:
+ *         productname:
+ *           type: string
+ *           description: Nombre del producto
+ *         productcode:
+ *           type: string
+ *           description: Código del producto
+ *         currentExistence:
+ *           type: number
+ *           description: Existencia actual del producto
+ *         minimumReplacementQuantity:
+ *           type: number
+ *           description: Cantidad mínima de reposición
+ *         storageLocation:
+ *           type: string
+ *           description: Ubicación del producto
+ *       required:
+ *         - productname
+ *         - productcode
+ *         - currentExistence
+ *         - minimumReplacementQuantity
+ *         - storageLocation
+ *       example:
+ *         productname: Zapatos de correr
+ *         productcode: ABC123
+ *         currentExistence: 50
+ *         minimumReplacementQuantity: 10
+ *         storageLocation: Estanteria F-5
+ */
+
 //GET
 router.get("/inventarios", (req, res) => {
   inventariosModel
