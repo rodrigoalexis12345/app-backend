@@ -1,1 +1,3 @@
-GET http://localhost:4000/api/empleados
+//GET http://localhost:4000/api/pedidos
+//GET http://localhost:4000/api/inventarios
+GET http://localhost:4000/api/productos

@@ -6,6 +6,11 @@ const mongoose = require("mongoose");
 //estamos traendo el archivo de clientes.js routes
 const clientes = require("./routes/clientes");
 const empleados = require("./routes/empleados");
+const inventarios = require("./routes/inventarios");
+const pedidos = require("./routes/pedidos");
+const productos = require("./routes/productos");
+
+
 //AVANCE
 //const swagerUI = require("swagger-ui-espress");
 //const swaguerJSDoc=require("swagguer-jsdoc")
@@ -25,7 +30,7 @@ aplicacion.get("/", (req, res) => {
   res.send("pagina de raiz");
 });
 //Ruta MongoDB
-aplicacion.use("/api", clientes, empleados);
+aplicacion.use("/api", clientes, empleados, inventarios,pedidos,productos);
 //Ejecucion MONGO:DB
 //Ponemos entre el ? retrywrites el nombre de nuestra base de datos
 mongoose

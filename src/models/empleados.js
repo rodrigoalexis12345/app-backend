@@ -34,7 +34,7 @@ const empleadosModel = new mongoose.Schema({
       },
     ID:{
         type: String,
-        required: Number,
+        required: true,
       },
   });
   

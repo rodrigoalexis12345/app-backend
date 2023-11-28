@@ -24,7 +24,7 @@ router.get("/clientes/:id", (req, res) => {
 //post
 router.post("/clientes", (req, res) => {
   const clientes = clientesModel(req.body);
-  clientes
+  clientesModel
     .save()
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
