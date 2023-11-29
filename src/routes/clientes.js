@@ -183,7 +183,7 @@ router.delete("/clientes/:id", (req, res) => {
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
-//Operacion delete con swagger
+//Operacion delete con swagger clientes
 /**
  * @swagger
  * /api/clientes/{id}:

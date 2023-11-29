@@ -120,6 +120,24 @@ router.get("/empleados/:id", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
+//Operacion Post con  swagger Empleados
+/**
+ * @swagger
+ * /api/empleados:
+ *   post:
+ *     summary: Crea un nuevo empleado
+ *     tags:
+ *       - Empleados
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#components/schemas/Empleados'
+ *     responses:
+ *       200:
+ *         description: Empleado guardado
+ */
 //post
 router.post("/empleados", (req, res) => {
   const empleados = empleadosModel(req.body);
@@ -128,6 +146,36 @@ router.post("/empleados", (req, res) => {
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
+//Operacion put en swagger
+/**
+ * @swagger
+ * /api/empleados/{id}:
+ *   put:
+ *     summary: Actualizar un empleado por su ID
+ *     tags:
+ *       - Empleados
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del empleado a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               item:
+ *                 $ref: '#components/schemas/Empleados'
+ *     responses:
+ *       200:
+ *         description: Empleado actualizado
+ *       404:
+ *         description: Empleado no encontrado
+ */
 //put actualisar registro
 router.delete("/empleados/:id", (req, res) => {
   const { id } = req.params;
@@ -162,7 +210,27 @@ router.delete("/empleados/:id", (req, res) => {
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
-
+//Operacion delete con swagger empleados
+/**
+ * @swagger
+ * /api/empleados/{id}:
+ *   delete:
+ *     summary: Elimina un empleado por su ID
+ *     tags:
+ *       - Empleados
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del empleado a eliminar
+ *     responses:
+ *       200:
+ *         description: Empleado eliminado
+ *       404:
+ *         description: Empleado no encontrado
+ */
 //DELETE
 router.delete("/empleados/:id", (req, res) => {
   const { id } = req.params;

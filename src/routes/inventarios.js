@@ -45,7 +45,7 @@ const inventariosModel = require("../models/inventarios");
  * @swagger
  * /api/inventarios:
  *   get:
- *     summary: Lista todas los que esta en inventarios
+ *     summary: Lista todo los que esta en inventarios
  *     tags:
  *       - Inventarios
  *     responses:
@@ -65,6 +65,33 @@ router.get("/inventarios", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
+//Operacion get con ID swagger inventario
+/**
+ * @swagger
+ * /api/inventarios/{id}:
+ *   get:
+ *     summary: Lista el inventario por su ID
+ *     tags:
+ *       - Inventarios
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del inventario a buscar
+ *     responses:
+ *       200:
+ *         description: Inventario encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#components/schemas/Inventarios'
+ *       404:
+ *         description: El inventario consultado no existe
+ */
 
 //GET CON ID
 router.get("/inventarios/:id", (req, res) => {
@@ -74,6 +101,24 @@ router.get("/inventarios/:id", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
+//Operacion Post con  swagger Inventarios
+/**
+ * @swagger
+ * /api/inventarios:
+ *   post:
+ *     summary: Crea un nuevo inventario
+ *     tags:
+ *       - Inventarios
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#components/schemas/Inventarios'
+ *     responses:
+ *       200:
+ *         description: Inventario guardado
+ */
 //post
 router.post("/inventarios", (req, res) => {
   const inventarios = inventariosModel(req.body);
@@ -82,6 +127,36 @@ router.post("/inventarios", (req, res) => {
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
+//Operacion put en swagger
+/**
+ * @swagger
+ * /api/inventarios/{id}:
+ *   put:
+ *     summary: Actualizar el inventario por su ID
+ *     tags:
+ *       - Inventarios
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del Inventario a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               item:
+ *                 $ref: '#components/schemas/Inventarios'
+ *     responses:
+ *       200:
+ *         description: Inventario actualizado
+ *       404:
+ *         description: Inventario no encontrado
+ */
 //put actualisar registro
 router.delete("/inventarios/:id", (req, res) => {
   const { id } = req.params;
@@ -108,7 +183,27 @@ router.delete("/inventarios/:id", (req, res) => {
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
-
+//Operacion delete con swagger
+/**
+ * @swagger
+ * /api/inventarios/{id}:
+ *   delete:
+ *     summary: Elimina inventario por su ID
+ *     tags:
+ *       - Inventarios
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del Inventario a eliminar
+ *     responses:
+ *       200:
+ *         description: Inventario eliminado
+ *       404:
+ *         description: Inventario no encontrado
+ */
 //DELETE
 router.delete("/inventarios/:id", (req, res) => {
   const { id } = req.params;
