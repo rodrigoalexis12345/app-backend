@@ -121,7 +121,7 @@ router.get("/clientes/:id", (req, res) => {
 //post
 router.post("/clientes", (req, res) => {
   const clientes = clientesModel(req.body);
-  clientesModel
+  clientes
     .save()
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
@@ -131,43 +131,43 @@ router.post("/clientes", (req, res) => {
  * @swagger
  * /api/clientes/{id}:
  *   put:
- *     summary: Actualizar un cliente por su ID
+ *     summary: Actualiza un cliente existente
  *     tags:
  *       - Clientes
  *     parameters:
  *       - in: path
  *         name: id
- *         schema:
- *           type: string
  *         required: true
  *         description: ID del cliente a actualizar
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               item:
- *                 $ref: '#components/schemas/Clientes'
+ *             $ref: '#components/schemas/Clientes'
  *     responses:
  *       200:
- *         description: Cliente actualizado
+ *         description: Cliente actualizado correctamente
  *       404:
  *         description: Cliente no encontrado
+ *       500:
+ *         description: Error interno del servidor
  */
 
 //put actualisar registro
-router.delete("/clientes/:id", (req, res) => {
+router.put("/clientes/:id", (req, res) => {
   const { id } = req.params;
   const {
     nameandsurname,
     age,
     phonenumber,
-    shipingaddrees,
+    shippingaddress,
     favoriteshoebrand,
   } = req.body;
   clientesModel
+    //Cambio Codigo
     .updateOne(
       { _id: id },
       {
@@ -175,13 +175,18 @@ router.delete("/clientes/:id", (req, res) => {
           nameandsurname,
           age,
           phonenumber,
-          shipingaddrees,
+          shippingaddress,
           favoriteshoebrand,
         },
       }
     )
-    .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
-    .catch((error) => res.json({ mensaje: error }));
+    .then((data) => {
+      if (data.nModified === 0) {
+        return res.status(404).json({ mensaje: "Cliente no encontrado" });
+      }
+      res.json({ mensaje: "Cliente actualizado correctamente" });
+    })
+    .catch((error) => res.status(500).json({ mensaje: error }));
 });
 //Operacion delete con swagger clientes
 /**

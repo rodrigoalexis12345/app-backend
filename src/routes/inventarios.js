@@ -158,7 +158,7 @@ router.post("/inventarios", (req, res) => {
  *         description: Inventario no encontrado
  */
 //put actualisar registro
-router.delete("/inventarios/:id", (req, res) => {
+router.put("/inventarios/:id", (req, res) => {
   const { id } = req.params;
   const {
     productname,

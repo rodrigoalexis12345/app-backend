@@ -12,7 +12,7 @@ const clientesModel = new mongoose.Schema({
   phonenumber: {
     type: Number,
   },
-  shipingaddress: {
+  shippingaddress: {
     type: String,
     required: true,
   },

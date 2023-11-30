@@ -161,7 +161,7 @@ router.post("/productos", (req, res) => {
  *         description: Producto no encontrado
  */
 //put actualisar registro
-router.delete("/productos/:id", (req, res) => {
+router.put("/productos/:id", (req, res) => {
   const { id } = req.params;
   const { Productname, colors, stock, sizes, Productstatus } = req.body;
   productosModel

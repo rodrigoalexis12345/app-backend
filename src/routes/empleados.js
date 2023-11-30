@@ -177,7 +177,7 @@ router.post("/empleados", (req, res) => {
  *         description: Empleado no encontrado
  */
 //put actualisar registro
-router.delete("/empleados/:id", (req, res) => {
+router.put("/empleados/:id", (req, res) => {
   const { id } = req.params;
   const {
     nameandsurname,

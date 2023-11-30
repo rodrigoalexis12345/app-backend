@@ -195,7 +195,7 @@ router.post("/pedidos", (req, res) => {
  *         description: Pedido no encontrado
  */
 //put actualisar registro
-router.delete("/pedidos/:id", (req, res) => {
+router.put("/pedidos/:id", (req, res) => {
   const { id } = req.params;
   const {
     customerwhoplacedtheorder,
