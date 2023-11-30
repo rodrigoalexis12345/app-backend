@@ -16,7 +16,7 @@ const inventariosModel = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  storageLocation: {
+  storageLocation1: {
     type: String,
     required: true,
   },

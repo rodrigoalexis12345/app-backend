@@ -165,7 +165,7 @@ router.put("/inventarios/:id", (req, res) => {
     productcode,
     currentExistence,
     miniumReplacementQuantity,
-    storageLocation,
+    storageLocation1,
   } = req.body;
   inventariosModel
     .updateOne(
@@ -176,7 +176,7 @@ router.put("/inventarios/:id", (req, res) => {
           productcode,
           currentExistence,
           miniumReplacementQuantity,
-          storageLocation,
+          storageLocation1,
         },
       }
     )
