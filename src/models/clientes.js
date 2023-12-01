@@ -21,7 +21,7 @@ const clientesModel = new mongoose.Schema({
     required: true,
   },
 });
-
+// prueba
 // Exporta el modelo usando mongoose.model con los nombres separados por una coma
 const ClientesModel = mongoose.model("Clientes", clientesModel);
 module.exports = ClientesModel;
