@@ -69,38 +69,38 @@ router.get("/clientes", (req, res) => {
 //Operacion get con ID swagger
 /**
  * @swagger
- * /api/clientes/{id}:
+ * /api/clientes/{nameandsurname}:
  *   get:
- *     summary: Lista un cliente por su ID
+ *     summary: Lista un cliente por su nombre y apellido
  *     tags:
  *       - Clientes
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: nameandsurname
  *         schema:
  *           type: string
  *         required: true
- *         description: ID del cliente a buscar
+ *         description: Nombre y apellido del cliente a buscar
  *     responses:
  *       200:
  *         description: Cliente encontrado
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#components/schemas/Clientes'
+ *               $ref: '#components/schemas/Clientes'
  *       404:
- *         description: La venta consultada no existe
+ *         description: El cliente consultado no existe
  */
+
 //GET CON ID
-router.get("/clientes/:id", (req, res) => {
-  const { id } = req.params;
+router.get("/clientes/:nameandsurname", (req, res) => {
+  const { nameandsurname } = req.params;
   clientesModel
-    .findById(id)
+    .findOne({ nameandsurname }) // Buscar por nameandsurname en lugar de _id
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
+
 //Operacion Post con  swagger
 /**
  * @swagger
@@ -127,19 +127,18 @@ router.post("/clientes", (req, res) => {
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
-//Operacion put en swagger
 /**
  * @swagger
- * /api/clientes/{id}:
+ * /api/clientes/{nameandsurname}:
  *   put:
- *     summary: Actualiza un cliente existente
+ *     summary: Actualiza un cliente existente por su nombre y apellido
  *     tags:
  *       - Clientes
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: nameandsurname
  *         required: true
- *         description: ID del cliente a actualizar
+ *         description: Nombre y apellido del cliente a actualizar
  *         schema:
  *           type: string
  *     requestBody:
@@ -157,24 +156,23 @@ router.post("/clientes", (req, res) => {
  *         description: Error interno del servidor
  */
 
-//put actualisar registro
-router.put("/clientes/:id", (req, res) => {
-  const { id } = req.params;
+//Metodo put
+router.put("/clientes/:nameandsurname", (req, res) => {
+  const { nameandsurname } = req.params;
   const {
-    nameandsurname,
+    nameandsurname: new_nameandsurname,
     age,
-    phonenumber,
     shippingaddress,
     favoriteshoebrand,
   } = req.body;
+
   clientesModel
     .updateOne(
-      { _id: id },
+      { nameandsurname }, // Buscar por nameandsurname en lugar de _id
       {
         $set: {
-          nameandsurname,
+          nameandsurname: new_nameandsurname,
           age,
-          phonenumber,
           shippingaddress,
           favoriteshoebrand,
         },
@@ -183,33 +181,37 @@ router.put("/clientes/:id", (req, res) => {
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
-//Operacion delete con swagger clientes
+
+//Documentacion Delete Swagger
 /**
  * @swagger
- * /api/clientes/{id}:
+ * /api/clientes/{nameandsurname}:
  *   delete:
- *     summary: Elimina un cliente por su ID
+ *     summary: Elimina un cliente por su Nombre
  *     tags:
  *       - Clientes
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: nameandsurname
  *         schema:
  *           type: string
  *         required: true
- *         description: ID del cliente a eliminar
+ *         description: nameandsurname del cliente a eliminar
  *     responses:
  *       200:
  *         description: Cliente eliminado
  *       404:
  *         description: Cliente no encontrado
+ *       500:
+ *         description: Error interno del servidor
  */
-//DELETE
-router.delete("/clientes/:id", (req, res) => {
-  const { id } = req.params;
+// DELETE por nameandsurname
+router.delete("/clientes/:nameandsurname", (req, res) => {
+  const { nameandsurname } = req.params;
+
   clientesModel
-    .deleteOne({ _id: id })
-    .then((data) => res.json({ mensaje: "Objeto eliminado" }))
+    .deleteOne({ nameandsurname }) // Elimina el cliente por el campo nameandsurname
+    .then((data) => res.json({ mensaje: "Cliente eliminado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
 
