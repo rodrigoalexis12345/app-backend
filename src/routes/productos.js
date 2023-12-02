@@ -16,18 +16,14 @@ const productosModel = require("../models/productos");
  *           type: string
  *           description: Nombre del producto
  *         colors:
- *           type: array
+ *           type: string
  *           description: Colores disponibles
- *           items:
- *             type: string
  *         stock:
  *           type: number
  *           description: Cantidad en stock
  *         sizes:
- *           type: array
+ *           type: string
  *           description: Tallas disponibles
- *           items:
- *             type: number
  *         Productstatus:
  *           type: string
  *           description: Estado del producto
@@ -39,9 +35,9 @@ const productosModel = require("../models/productos");
  *         - Productstatus
  *       example:
  *         Productname: Zapatos de correr
- *         colors: ["verde", "rojo", "azul"]
+ *         colors: verde , rojo , azul
  *         stock: 30
- *         sizes: [38, 39, 40, 41]
+ *         sizes: Desde 40 a 43
  *         Productstatus: Seminuevo
  */
 //operaciones GET swagger Productos
@@ -94,7 +90,7 @@ router.get("/productos", (req, res) => {
  *               items:
  *                 $ref: '#components/schemas/Productos'
  *       404:
- *         description:El producto consultado no existe
+ *         description: El producto consultado no existe
  */
 //GET CON ID
 router.get("/productos/:id", (req, res) => {
@@ -130,36 +126,36 @@ router.post("/productos", (req, res) => {
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
-//Operacion put en swagger productos
+//Operacion put en swagger
 /**
  * @swagger
  * /api/productos/{id}:
  *   put:
- *     summary: Actualizar el producto por su ID
+ *     summary: Actualiza un producto existente
  *     tags:
  *       - Productos
  *     parameters:
  *       - in: path
  *         name: id
- *         schema:
- *           type: string
  *         required: true
  *         description: ID del producto a actualizar
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               item:
- *                 $ref: '#components/schemas/Productos'
+ *             $ref: '#components/schemas/Productos'
  *     responses:
  *       200:
- *         description: Producto actualizado
+ *         description: Cliente actualizado correctamente
  *       404:
- *         description: Producto no encontrado
+ *         description: Cliente no encontrado
+ *       500:
+ *         description: Error interno del servidor
  */
+
 //put actualisar registro
 router.put("/productos/:id", (req, res) => {
   const { id } = req.params;
@@ -177,7 +173,7 @@ router.put("/productos/:id", (req, res) => {
         },
       }
     )
-    .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
+    .then((data) => res.json({ mensaje: "Producto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
 //Operacion delete con swagger productos

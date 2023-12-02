@@ -12,7 +12,7 @@ const empleadosModel = require("../models/empleados");
  *     Empleados:
  *       type: object
  *       properties:
- *         nameandsurnameofemployees:
+ *         namesandsurnamesofemployees:
  *           type: string
  *           description: Nombre del colaborador
  *         employeeage:
@@ -40,24 +40,24 @@ const empleadosModel = require("../models/empleados");
  *           type: string
  *           description: Identificación del colaborador
  *       required:
- *         - nameandsurnameofemployees
+ *         - namesandsurnamesofemployees
  *         - employeeage
- *         - phonenumber
  *         - roleinthecompany
  *         - startdateinthecompany
  *         - workinghours
  *         - freedays
  *         - sure
+ *         - phonenumber
  *         - ID
  *       example:
- *         nameandsurnameofemployees: Alexis
+ *         namesandsurnamesofemployees: Alexis
  *         employeeage: 15
- *         phonenumber: 152331520
  *         roleinthecompany: Manager
  *         startdateinthecompany: 20230101
  *         workinghours: 9 AM - 5 PM
  *         freedays: Saturday, Sunday
  *         sure: XYZ123
+ *         phonenumber: 920123
  *         ID: 75962031
  */
 //operaciones GET swagger empleados
@@ -151,36 +151,35 @@ router.post("/empleados", (req, res) => {
  * @swagger
  * /api/empleados/{id}:
  *   put:
- *     summary: Actualizar un empleado por su ID
+ *     summary: Actualiza un Empleado existente
  *     tags:
  *       - Empleados
  *     parameters:
  *       - in: path
  *         name: id
- *         schema:
- *           type: string
  *         required: true
  *         description: ID del empleado a actualizar
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               item:
- *                 $ref: '#components/schemas/Empleados'
+ *             $ref: '#components/schemas/Empleados'
  *     responses:
  *       200:
- *         description: Empleado actualizado
+ *         description: Cliente actualizado correctamente
  *       404:
- *         description: Empleado no encontrado
+ *         description: Cliente no encontrado
+ *       500:
+ *         description: Error interno del servidor
  */
-//put actualisar registro
+//put actualisar registro YA FUNCA 😎
 router.put("/empleados/:id", (req, res) => {
   const { id } = req.params;
   const {
-    nameandsurname,
+    namesandsurnamesofemployees,
     employeeage,
     roleinthecompany,
     startdateinthecompany,
@@ -195,7 +194,7 @@ router.put("/empleados/:id", (req, res) => {
       { _id: id },
       {
         $set: {
-          nameandsurname,
+          namesandsurnamesofemployees,
           employeeage,
           roleinthecompany,
           startdateinthecompany,

@@ -12,7 +12,7 @@ const inventariosModel = new mongoose.Schema({
   currentExistence: {
     type: Number,
   },
-  miniumReplacementQuantity: {
+  minimumReplacementQuantity: {
     type: Number,
     required: true,
   },

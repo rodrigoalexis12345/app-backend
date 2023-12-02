@@ -12,72 +12,69 @@ const pedidosModel = require("../models/pedidos");
  *     Pedidos:
  *       type: object
  *       properties:
- *         customerWhoPlacedTheOrder:
+ *         customerwhoplacedtheorder:
  *           type: string
  *           description: Cliente que realiza el pedido
- *         orderedProducts:
- *           type: array
- *           description: Productos ordenados por el cliente
- *           items:
- *             type: object
- *             properties:
- *               product1:
- *                 type: string
- *                 description: Primer pedido
- *               product2:
- *                 type: string
- *                 description: Segundo pedido
- *         amount1:
+ *         orderedproducts:
  *           type: number
- *           description: Número de pedido del primer producto
- *         amount2:
- *           type: number
- *           description: Número de pedido del segundo producto
- *         unitPrice1:
- *           type: number
- *           description: Precio por unidad del primer producto
- *         unitPrice2:
- *           type: number
- *           description: Precio por unidad del segundo producto
- *         orderStatus:
+ *           description: Pedidos ordenados
+ *           product1:
+ *             type: string
+ *             description: Primer pedido
+ *           amount1:
+ *             type: number
+ *             description: Cantidad del primer pedido
+ *           unitprice1:
+ *             type: string
+ *             description: Precio unitario del primer pedido
+ *           product2:
+ *             type: string
+ *             description: Segundo pedido
+ *           amount2:
+ *             type: number
+ *             description: Cantidad del segundo pedido
+ *           unitprice2:
+ *             type: string
+ *             description: Precio unitario del segundo pedido
+ *         orderstatus:
  *           type: string
  *           description: Estado del pedido
- *         shippingAddress:
+ *         shippingaddrees:
  *           type: string
  *           description: Dirección de entrega
  *         card:
  *           type: string
  *           description: Método de pago
- *         totalToPay:
- *           type: number
+ *         totaltopay:
+ *           type: string
  *           description: Precio final a pagar
  *       required:
- *         - customerWhoPlacedTheOrder
- *         - orderedProducts
- *         - amount1
- *         - amount2
- *         - unitPrice1
- *         - unitPrice2
- *         - orderStatus
- *         - shippingAddress
- *         - card
- *         - totalToPay
+ *         - customerwhoplacedtheorder
  *         - product1
+ *         - amount1
+ *         - unitprice1
  *         - product2
+ *         - amount2
+ *         - unitprice2
+ *         - orderstatus
+ *         - shippingaddrees
+ *         - card
+ *         - totaltopay
  *       example:
- *         customerWhoPlacedTheOrder: Alexis
- *         orderedProducts:
- *           - product1: Zapatos
- *           - product2: Camiseta
- *         amount1: 1
- *         amount2: 2
- *         unitPrice1: 50
- *         unitPrice2: 150
- *         orderStatus: Enviado
- *         shippingAddress: Calle Principal 123
- *         card: Visa
- *         totalToPay: 100
+ *          customerwhoplacedtheorder: Nombre_Cliente
+ *          orderedproducts: 2
+ *          product1: Producto_1
+ *          amount1: 1
+ *          unitprice1: 50
+ *          product2: Producto_2
+ *          amount2: 2
+ *          unitprice2: 60
+ *          orderstatus: Pendiente
+ *          shippingaddrees: Dirección_Entrega
+ *          card: Tarjeta_Crédito
+ *          totaltopay: 160
  */
+
 //operaciones GET swagger Pedidos
 /**
  * @swagger
@@ -138,7 +135,7 @@ router.get("/pedidos/:id", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
-//Operacion Post con  swagger Pedidos
+//Operacion Post con  swagger PEDIDOS
 /**
  * @swagger
  * /api/pedidos:
@@ -154,46 +151,46 @@ router.get("/pedidos/:id", (req, res) => {
  *             $ref: '#components/schemas/Pedidos'
  *     responses:
  *       200:
- *         description: Venta guardada
+ *         description: Pedido guardado
  */
 //post
 router.post("/pedidos", (req, res) => {
-  const pedidos = pedidosModel(req.body);
-  pedidosModel
+  const empleados = pedidosModel(req.body);
+  empleados
     .save()
-    .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
+    .then((data) => res.json({ mensaje: "Pedido guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
-//Operacion put en swagger pedidos
+//Operacion put en swagger Pedidos
 /**
  * @swagger
  * /api/pedidos/{id}:
  *   put:
- *     summary: Actualizar el pedido por su ID
+ *     summary: Actualiza un Pedido existente
  *     tags:
  *       - Pedidos
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
+ *         description: ID del pedido a actualizar
  *         schema:
  *           type: string
- *         required: true
- *         description: ID del Pedido a actualizar
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               item:
- *                 $ref: '#components/schemas/Pedidos'
+ *             $ref: '#components/schemas/Pedidos'
  *     responses:
  *       200:
- *         description: Pedido actualizado
+ *         description: Pedido actualizado correctamente
  *       404:
  *         description: Pedido no encontrado
+ *       500:
+ *         description: Error interno del servidor
  */
+
 //put actualisar registro
 router.put("/pedidos/:id", (req, res) => {
   const { id } = req.params;
@@ -205,7 +202,7 @@ router.put("/pedidos/:id", (req, res) => {
     unitprice1,
     product2,
     amount2,
-    unitprice,
+    unitprice2,
     orderstatus,
     shippingaddrees,
     card,
@@ -223,7 +220,7 @@ router.put("/pedidos/:id", (req, res) => {
           unitprice1,
           product2,
           amount2,
-          unitprice,
+          unitprice2,
           orderstatus,
           shippingaddrees,
           card,
@@ -231,7 +228,7 @@ router.put("/pedidos/:id", (req, res) => {
         },
       }
     )
-    .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
+    .then((data) => res.json({ mensaje: "Pedido actualisado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
 //Operacion delete con swagger pedidos

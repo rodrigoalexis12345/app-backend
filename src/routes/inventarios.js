@@ -9,7 +9,7 @@ const inventariosModel = require("../models/inventarios");
  * @swagger
  * components:
  *   schemas:
- *     Inventario:
+ *     Inventarios:
  *       type: object
  *       properties:
  *         productname:
@@ -17,29 +17,31 @@ const inventariosModel = require("../models/inventarios");
  *           description: Nombre del producto
  *         productcode:
  *           type: string
- *           description: Código del producto
+ *           description: Codigo del producto
  *         currentExistence:
  *           type: number
  *           description: Existencia actual del producto
  *         minimumReplacementQuantity:
  *           type: number
- *           description: Cantidad mínima de reposición
- *         storageLocation:
+ *           description: Cantida minima de repocision
+ *         storageLocation1:
  *           type: string
- *           description: Ubicación del producto
+ *           description: Lugar de Ubicacion del producto
  *       required:
  *         - productname
  *         - productcode
  *         - currentExistence
  *         - minimumReplacementQuantity
- *         - storageLocation
+ *         - storageLocation1
  *       example:
- *         productname: Zapatos de correr
- *         productcode: ABC123
+ *         productname: sandalias hawainas
+ *         productcode: ZC62S0
  *         currentExistence: 50
- *         minimumReplacementQuantity: 10
- *         storageLocation: Estanteria F-5
+ *         minimumReplacementQuantity: 50
+ *         workinghours: 9 AM - 5 PM
+ *         storageLocation1: Estanteria F-6
  */
+
 //operaciones GET swagger Inventarios
 /**
  * @swagger
@@ -132,31 +134,31 @@ router.post("/inventarios", (req, res) => {
  * @swagger
  * /api/inventarios/{id}:
  *   put:
- *     summary: Actualizar el inventario por su ID
+ *     summary: Actualiza un Inventario existente
  *     tags:
  *       - Inventarios
  *     parameters:
  *       - in: path
  *         name: id
- *         schema:
- *           type: string
  *         required: true
  *         description: ID del Inventario a actualizar
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               item:
- *                 $ref: '#components/schemas/Inventarios'
+ *             $ref: '#components/schemas/Inventarios'
  *     responses:
  *       200:
- *         description: Inventario actualizado
+ *         description: Inventario actualizado correctamente
  *       404:
  *         description: Inventario no encontrado
+ *       500:
+ *         description: Inventario interno del servidor
  */
+
 //put actualisar registro
 router.put("/inventarios/:id", (req, res) => {
   const { id } = req.params;
@@ -164,7 +166,7 @@ router.put("/inventarios/:id", (req, res) => {
     productname,
     productcode,
     currentExistence,
-    miniumReplacementQuantity,
+    minimumReplacementQuantity,
     storageLocation1,
   } = req.body;
   inventariosModel
@@ -175,7 +177,7 @@ router.put("/inventarios/:id", (req, res) => {
           productname,
           productcode,
           currentExistence,
-          miniumReplacementQuantity,
+          minimumReplacementQuantity,
           storageLocation1,
         },
       }

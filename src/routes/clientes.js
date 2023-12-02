@@ -59,6 +59,7 @@ const clientesModel = require("../models/clientes");
  *                 $ref: '#components/schemas/Clientes'
  */
 //GET
+
 router.get("/clientes", (req, res) => {
   clientesModel
     .find()
@@ -167,7 +168,6 @@ router.put("/clientes/:id", (req, res) => {
     favoriteshoebrand,
   } = req.body;
   clientesModel
-    //Cambio Codigo
     .updateOne(
       { _id: id },
       {
@@ -180,13 +180,8 @@ router.put("/clientes/:id", (req, res) => {
         },
       }
     )
-    .then((data) => {
-      if (data.nModified === 0) {
-        return res.status(404).json({ mensaje: "Cliente no encontrado" });
-      }
-      res.json({ mensaje: "Cliente actualizado correctamente" });
-    })
-    .catch((error) => res.status(500).json({ mensaje: error }));
+    .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
+    .catch((error) => res.json({ mensaje: error }));
 });
 //Operacion delete con swagger clientes
 /**
