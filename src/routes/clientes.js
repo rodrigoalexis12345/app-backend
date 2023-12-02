@@ -127,6 +127,7 @@ router.post("/clientes", (req, res) => {
     .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
+//Swagger metodo PUT DOCUMENTACION
 /**
  * @swagger
  * /api/clientes/{nameandsurname}:

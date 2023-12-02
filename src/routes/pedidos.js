@@ -103,18 +103,18 @@ router.get("/pedidos", (req, res) => {
 //Operacion get con ID swagger
 /**
  * @swagger
- * /api/pedidos/{id}:
+ * /api/pedidos/{customerwhoplacedtheorder}:
  *   get:
- *     summary: Lista un pedido por su ID
+ *     summary: Lista un pedido por el nombre del cliente
  *     tags:
  *       - Pedidos
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: customerwhoplacedtheorder
  *         schema:
  *           type: string
  *         required: true
- *         description: ID del pedido a buscar
+ *         description: Nombre de la persona
  *     responses:
  *       200:
  *         description: Pedido encontrado
@@ -128,10 +128,10 @@ router.get("/pedidos", (req, res) => {
  *         description: El pedido consultado no existe
  */
 //GET CON ID
-router.get("/pedidos/:id", (req, res) => {
-  const { id } = req.params;
+router.get("/pedidos/:customerwhoplacedtheorder", (req, res) => {
+  const { customerwhoplacedtheorder } = req.params;
   pedidosModel
-    .findById(id)
+    .findOne({ customerwhoplacedtheorder }) // Buscar por Nombre en lugar de _id
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
@@ -164,16 +164,16 @@ router.post("/pedidos", (req, res) => {
 //Operacion put en swagger Pedidos
 /**
  * @swagger
- * /api/pedidos/{id}:
+ * /api/pedidos/{customerwhoplacedtheorder}:
  *   put:
  *     summary: Actualiza un Pedido existente
  *     tags:
  *       - Pedidos
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: customerwhoplacedtheorder
  *         required: true
- *         description: ID del pedido a actualizar
+ *         description: Nombre de la persona a actualizar
  *         schema:
  *           type: string
  *     requestBody:
@@ -192,10 +192,10 @@ router.post("/pedidos", (req, res) => {
  */
 
 //put actualisar registro
-router.put("/pedidos/:id", (req, res) => {
-  const { id } = req.params;
+router.put("/pedidos/:customerwhoplacedtheorder", (req, res) => {
+  const { customerwhoplacedtheorder } = req.params;
   const {
-    customerwhoplacedtheorder,
+    customerwhoplacedtheorder: new_customerwhoplacedtheorder,
     orderedproducts,
     product1,
     amount1,
@@ -208,12 +208,13 @@ router.put("/pedidos/:id", (req, res) => {
     card,
     totaltopay,
   } = req.body;
+
   pedidosModel
     .updateOne(
-      { _id: id },
+      { customerwhoplacedtheorder }, // Buscar por Nombre en lugar de _id
       {
         $set: {
-          customerwhoplacedtheorder,
+          customerwhoplacedtheorder: new_customerwhoplacedtheorder,
           orderedproducts,
           product1,
           amount1,
@@ -228,24 +229,25 @@ router.put("/pedidos/:id", (req, res) => {
         },
       }
     )
-    .then((data) => res.json({ mensaje: "Pedido actualisado correctamente" }))
+    .then((data) => res.json({ mensaje: "Objeto guardado correctamente" }))
     .catch((error) => res.json({ mensaje: error }));
 });
+
 //Operacion delete con swagger pedidos
 /**
  * @swagger
- * /api/pedidos/{id}:
+ * /api/pedidos/{customerwhoplacedtheorder}:
  *   delete:
- *     summary: Elimina un pedido por su ID
+ *     summary: Elimina un pedido por su Nombre
  *     tags:
  *       - Pedidos
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: customerwhoplacedtheorder
  *         schema:
  *           type: string
  *         required: true
- *         description: ID del pedido a eliminar
+ *         description: customerwhoplacedtheorder del pedido a eliminar
  *     responses:
  *       200:
  *         description: Pedido eliminado
@@ -253,10 +255,10 @@ router.put("/pedidos/:id", (req, res) => {
  *         description: Pedido no encontrado
  */
 //DELETE
-router.delete("/pedidos/:id", (req, res) => {
-  const { id } = req.params;
+router.delete("/pedidos/:customerwhoplacedtheorder", (req, res) => {
+  const { customerwhoplacedtheorder } = req.params;
   pedidosModel
-    .deleteOne({ _id: id })
+    .deleteOne({ customerwhoplacedtheorder })
     .then((data) => res.json({ mensaje: "Objeto eliminado" }))
     .catch((error) => res.json({ mensaje: error }));
 });

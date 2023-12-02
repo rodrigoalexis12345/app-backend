@@ -70,18 +70,18 @@ router.get("/inventarios", (req, res) => {
 //Operacion get con ID swagger inventario
 /**
  * @swagger
- * /api/inventarios/{id}:
+ * /api/inventarios/{productname}:
  *   get:
- *     summary: Lista el inventario por su ID
+ *     summary: Lista el inventario por su productname
  *     tags:
  *       - Inventarios
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: productname
  *         schema:
  *           type: string
  *         required: true
- *         description: ID del inventario a buscar
+ *         description: productname del inventario a buscar
  *     responses:
  *       200:
  *         description: Inventario encontrado
@@ -96,10 +96,10 @@ router.get("/inventarios", (req, res) => {
  */
 
 //GET CON ID
-router.get("/inventarios/:id", (req, res) => {
-  const { id } = req.params;
+router.get("/inventarios/:productname", (req, res) => {
+  const { productname } = req.params;
   inventariosModel
-    .findById(id)
+    .findOne({ productname }) // Buscar por productname en lugar de _id
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
@@ -132,16 +132,16 @@ router.post("/inventarios", (req, res) => {
 //Operacion put en swagger
 /**
  * @swagger
- * /api/inventarios/{id}:
+ * /api/inventarios/{productname}:
  *   put:
  *     summary: Actualiza un Inventario existente
  *     tags:
  *       - Inventarios
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: productname
  *         required: true
- *         description: ID del Inventario a actualizar
+ *         description: productname del Inventario a actualizar
  *         schema:
  *           type: string
  *     requestBody:
@@ -160,10 +160,10 @@ router.post("/inventarios", (req, res) => {
  */
 
 //put actualisar registro
-router.put("/inventarios/:id", (req, res) => {
-  const { id } = req.params;
+router.put("/inventarios/:productname", (req, res) => {
+  const { productname } = req.params;
   const {
-    productname,
+    productname: new_productname,
     productcode,
     currentExistence,
     minimumReplacementQuantity,
@@ -171,10 +171,10 @@ router.put("/inventarios/:id", (req, res) => {
   } = req.body;
   inventariosModel
     .updateOne(
-      { _id: id },
+      { productname },
       {
         $set: {
-          productname,
+          productname: new_productname,
           productcode,
           currentExistence,
           minimumReplacementQuantity,
@@ -188,18 +188,18 @@ router.put("/inventarios/:id", (req, res) => {
 //Operacion delete con swagger
 /**
  * @swagger
- * /api/inventarios/{id}:
+ * /api/inventarios/{productname}:
  *   delete:
- *     summary: Elimina inventario por su ID
+ *     summary: Elimina inventario por su productname
  *     tags:
  *       - Inventarios
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: productname
  *         schema:
  *           type: string
  *         required: true
- *         description: ID del Inventario a eliminar
+ *         description: productname del Inventario a eliminar
  *     responses:
  *       200:
  *         description: Inventario eliminado
@@ -207,10 +207,10 @@ router.put("/inventarios/:id", (req, res) => {
  *         description: Inventario no encontrado
  */
 //DELETE
-router.delete("/inventarios/:id", (req, res) => {
-  const { id } = req.params;
+router.delete("/inventarios/:productname", (req, res) => {
+  const { productname } = req.params;
   inventariosModel
-    .deleteOne({ _id: id })
+    .deleteOne({ productname })
     .then((data) => res.json({ mensaje: "Objeto eliminado" }))
     .catch((error) => res.json({ mensaje: error }));
 });
