@@ -1,5 +1,6 @@
 //Llamada de Paquetes
 const express = require("express");
+const app = express();
 //Paquete MONGO.DB
 const mongoose = require("mongoose");
 // implementacion de las apis
@@ -37,9 +38,20 @@ const swaggerConf = {
   apis: [`${path.join(__dirname, "./routes/*.js")}`],
 };
 //fin configuracion swuagger
-//Rutas
-//Video hora 1.19.30
+//rutas
 aplicacion.use(express.json());
+//axios
+aplicacion.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
+  next();
+});
+//axios
 //Ruta MongoDB
 aplicacion.use("/api", clientes, empleados, inventarios, pedidos, productos);
 //Swuager rutas
