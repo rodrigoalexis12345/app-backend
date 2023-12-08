@@ -29,7 +29,7 @@ const empleadosModel = new mongoose.Schema({
     type: String,
     required: true,
   },
-  phonenumber: {
+  phonenumber1: {
     type: Number,
     required: true,
   },

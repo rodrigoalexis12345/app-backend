@@ -33,7 +33,7 @@ const empleadosModel = require("../models/empleados");
  *         sure:
  *           type: string
  *           description: Carnet de seguro
- *         phonenumber:
+ *         phonenumber1:
  *           type: number
  *           description: Número de teléfono
  *         ID:
@@ -47,7 +47,7 @@ const empleadosModel = require("../models/empleados");
  *         - workinghours
  *         - freedays
  *         - sure
- *         - phonenumber
+ *         - phonenumber1
  *         - ID
  *       example:
  *         namesandsurnamesofemployees: Alexis
@@ -56,8 +56,8 @@ const empleadosModel = require("../models/empleados");
  *         startdateinthecompany: 20230101
  *         workinghours: 9 AM - 5 PM
  *         freedays: Saturday, Sunday
- *         sure: XYZ123
- *         phonenumber: 920123
+ *         sure: Carnet de seguro
+ *         phonenumber1: 920123
  *         ID: 75962031
  */
 //operaciones GET swagger empleados
@@ -186,7 +186,7 @@ router.put("/empleados/:employeeage", (req, res) => {
     workinghours,
     freedays,
     sure,
-    phonenumber,
+    phonenumber1,
     ID,
   } = req.body;
   empleadosModel
@@ -201,7 +201,7 @@ router.put("/empleados/:employeeage", (req, res) => {
           workinghours,
           freedays,
           sure,
-          phonenumber,
+          phonenumber1,
           ID,
         },
       }

@@ -1,6 +1,7 @@
 //Llamada de Paquetes
 const express = require("express");
 const app = express();
+
 //Paquete MONGO.DB
 const mongoose = require("mongoose");
 // implementacion de las apis
