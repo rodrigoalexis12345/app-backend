@@ -68,18 +68,18 @@ router.get("/productos", (req, res) => {
 //Operacion get con ID swagger
 /**
  * @swagger
- * /api/productos/{id}:
+ * /api/productos/{Productname}:
  *   get:
- *     summary: Lista un producto por su ID
+ *     summary: Lista un producto por su nombre y apellido
  *     tags:
  *       - Productos
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: Productname
  *         schema:
  *           type: string
  *         required: true
- *         description: ID del producto a buscar
+ *         description: Productname del producto a buscar
  *     responses:
  *       200:
  *         description: Producto encontrado
@@ -93,10 +93,10 @@ router.get("/productos", (req, res) => {
  *         description: El producto consultado no existe
  */
 //GET CON ID
-router.get("/productos/:id", (req, res) => {
-  const { id } = req.params;
+router.get("/productos/:Productname", (req, res) => {
+  const { Productname } = req.params;
   productosModel
-    .findById(id)
+    .findOne({ Productname }) // Buscar por productname en lugar de _id
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
@@ -129,16 +129,16 @@ router.post("/productos", (req, res) => {
 //Operacion put en swagger
 /**
  * @swagger
- * /api/productos/{id}:
+ * /api/productos/{Productname}:
  *   put:
- *     summary: Actualiza un producto existente
+ *     summary: Actualiza un producto existente pos su Productname
  *     tags:
  *       - Productos
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: Productname
  *         required: true
- *         description: ID del producto a actualizar
+ *         description: Productname del producto a actualizar
  *         schema:
  *           type: string
  *     requestBody:
@@ -157,15 +157,15 @@ router.post("/productos", (req, res) => {
  */
 
 //put actualisar registro
-router.put("/productos/:id", (req, res) => {
-  const { id } = req.params;
-  const { Productname, colors, stock, sizes, Productstatus } = req.body;
+router.put("/productos/:Productname", (req, res) => {
+  const { Productname } = req.params;
+  const { Productname:new_Productname, colors, stock, sizes, Productstatus } = req.body;
   productosModel
     .updateOne(
-      { _id: id },
+      { Productname },
       {
         $set: {
-          Productname,
+          Productname:new_Productname,
           colors,
           stock,
           sizes,
@@ -179,18 +179,18 @@ router.put("/productos/:id", (req, res) => {
 //Operacion delete con swagger productos
 /**
  * @swagger
- * /api/productos/{id}:
+ * /api/productos/{Productname}:
  *   delete:
- *     summary: Elimina un producto por su ID
+ *     summary: Elimina un producto por su Productname
  *     tags:
  *       - Productos
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: Productname
  *         schema:
  *           type: string
  *         required: true
- *         description: ID del Producto a eliminar
+ *         description: Productname del Producto a eliminar
  *     responses:
  *       200:
  *         description:  Producto eliminado
@@ -198,10 +198,10 @@ router.put("/productos/:id", (req, res) => {
  *         description:  Producto no encontrado
  */
 //DELETE
-router.delete("/productos/:id", (req, res) => {
-  const { id } = req.params;
+router.delete("/productos/:Productname", (req, res) => {
+  const { Productname } = req.params;
   productosModel
-    .deleteOne({ _id: id })
+    .deleteOne({ Productname })
     .then((data) => res.json({ mensaje: "Objeto eliminado" }))
     .catch((error) => res.json({ mensaje: error }));
 });

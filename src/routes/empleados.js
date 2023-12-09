@@ -85,24 +85,24 @@ router.get("/empleados", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
-//Operacion get con ID swagger empleados
+//Operacion get con Nombre swagger empleados
 /**
  * @swagger
- * /api/empleados/{employeeage}:
+ * /api/empleados/{namesandsurnamesofemployees}:
  *   get:
- *     summary: Lista empleado por su edad
+ *     summary: Lista empleado por su nombre
  *     tags:
  *       - Empleados
  *     parameters:
  *       - in: path
- *         name: employeeage
+ *         name: namesandsurnamesofemployees
  *         schema:
- *           type: number
+ *           type: string
  *         required: true
- *         description: Edad del empleado a buscar
+ *         description: Nombre del empleado a buscar
  *     responses:
  *       200:
- *         description: Empleado no encontrado
+ *         description: Nombre no encontrado
  *         content:
  *           application/json:
  *             schema:
@@ -112,10 +112,10 @@ router.get("/empleados", (req, res) => {
  */
 
 //GET CON ID
-router.get("/empleados/:employeeage", (req, res) => {
-  const { employeeage } = req.params;
+router.get("/empleados/:namesandsurnamesofemployees", (req, res) => {
+  const { namesandsurnamesofemployees } = req.params;
   empleadosModel
-    .findOne({ employeeage }) // Buscar por nameandsurname en lugar de _id
+    .findOne({ namesandsurnamesofemployees }) // Buscar por nameandsurname en lugar de _id
     .then((data) => res.json(data))
     .catch((error) => res.json({ mensaje: error }));
 });
@@ -212,18 +212,18 @@ router.put("/empleados/:employeeage", (req, res) => {
 //Operacion delete con swagger empleados
 /**
  * @swagger
- * /api/empleados/{employeeage}:
+ * /api/empleados/{namesandsurnamesofemployees}:
  *   delete:
- *     summary: Elimina un empleado por su edad
+ *     summary: Elimina un empleado por su nombre
  *     tags:
  *       - Empleados
  *     parameters:
  *       - in: path
- *         name: employeeage
+ *         name: namesandsurnamesofemployees
  *         schema:
  *           type: string
  *         required: true
- *         description: Edad del empleado a eliminar
+ *         description: Nombre del empleado a eliminar
  *     responses:
  *       200:
  *         description: Empleado eliminado
@@ -231,10 +231,10 @@ router.put("/empleados/:employeeage", (req, res) => {
  *         description: Empleado no encontrado
  */
 //DELETE
-router.delete("/empleados/:employeeage", (req, res) => {
-  const { employeeage } = req.params;
+router.delete("/empleados/:namesandsurnamesofemployees", (req, res) => {
+  const { namesandsurnamesofemployees } = req.params;
   empleadosModel
-    .deleteOne({ employeeage })
+    .deleteOne({ namesandsurnamesofemployees })
     .then((data) => res.json({ mensaje: "Objeto eliminado" }))
     .catch((error) => res.json({ mensaje: error }));
 });
